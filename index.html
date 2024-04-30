@@ -1,16 +1,75 @@
-<html>
-        <h1>
-        Alex's Website
-        </h1>
-        <body>
-            <h2>What is this?</h2>
-            <p>
-                This is my wesbite I intend on building it into a site showing my CV, my projects and my blog.
-            </p>
-            <h2>About me</h2>
-            <p>
-                My name is Alex and i'm originally from Scotland but living in Cheltenham, England working as a Cyber Security Engineer. I've spent the last 10 years serving in the British Army as a Communications Systems Engineer and am looking towards moving into Industry in a Cyber Security role.
-            </p>
-            </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex's Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #444;
+            padding: 10px 0;
+        }
+        nav a {
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+        nav a:hover {
+            background: #555;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Alex's Website</h1>
+    </header>
+    <nav>
+        <a href="#about">About Me</a>
+        <a href="#cv">CV</a>
+        <a href="#projects">Projects</a>
+        <a href="#blog">Blog</a>
+    </nav>
+    <div class="container">
+        <section id="about">
+            <h2>About Me</h2>
+            <p>My name is Alex and I'm originally from Scotland but living in Cheltenham, England working as a Cyber Security Engineer. I've spent the last 10 years serving in the British Army as a Communications Systems Engineer and am looking towards moving into Industry in a Cyber Security role.</p>
+        </section>
+        <section id="cv">
+            <h2>CV</h2>
+            <p>Details about your educational background and professional experience can be listed here.</p>
+        </section>
+        <section id="projects">
+            <h2>Projects</h2>
+            <p>A brief description of your projects or a portfolio showcase.</p>
+        </section>
+        <section id="blog">
+            <h2>Blog</h2>
+            <p>Insights into your professional interests, hobbies, or any other content you want to share.</p>
+        </section>
+    </div>
+</body>
 </html>
-            
+
