@@ -213,7 +213,7 @@
         }
 
         function checkIfGameLost() {
-            if (mistakes === maxWrong) {
+            if (mistakes >= maxWrong) {
                 document.getElementById('word').innerHTML = answer;
                 document.getElementById('message').innerHTML = 'You Lost!';
             }
@@ -246,12 +246,12 @@
             context.stroke();
 
             // Draw parts based on mistakes
-            if (mistakes > 0) { context.beginPath(); context.arc(100, 50, 10, 0, Math.PI * 2, true); context.stroke(); }
-            if (mistakes > 1) { context.beginPath(); context.moveTo(100, 60); context.lineTo(100, 100); context.stroke(); }
-            if (mistakes > 2) { context.beginPath(); context.moveTo(100, 70); context.lineTo(90, 90); context.stroke(); }
-            if (mistakes > 3) { context.beginPath(); context.moveTo(100, 70); context.lineTo(110, 90); context.stroke(); }
-            if (mistakes > 4) { context.beginPath(); context.moveTo(100, 100); context.lineTo(90, 120); context.stroke(); }
-            if (mistakes > 5) { context.beginPath(); context.moveTo(100, 100); context.lineTo(110, 120); context.stroke(); }
+            if (mistakes > 0) { context.beginPath(); context.arc(100, 50, 10, 0, Math.PI * 2, true); context.stroke(); } // Head
+            if (mistakes > 1) { context.beginPath(); context.moveTo(100, 60); context.lineTo(100, 100); context.stroke(); } // Body
+            if (mistakes > 2) { context.beginPath(); context.moveTo(100, 70); context.lineTo(90, 90); context.stroke(); } // Left Arm
+            if (mistakes > 3) { context.beginPath(); context.moveTo(100, 70); context.lineTo(110, 90); context.stroke(); } // Right Arm
+            if (mistakes > 4) { context.beginPath(); context.moveTo(100, 100); context.lineTo(90, 120); context.stroke(); } // Left Leg
+            if (mistakes > 5) { context.beginPath(); context.moveTo(100, 100); context.lineTo(110, 120); context.stroke(); } // Right Leg
         }
 
         document.getElementById('hangman-game').innerHTML += '<button onClick="reset()">Restart Game</button>';
@@ -262,6 +262,4 @@
     </script>
 </body>
 </html>
-
-
 
