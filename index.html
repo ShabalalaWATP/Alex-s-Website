@@ -59,6 +59,30 @@
         .space-above {
             margin-top: 15px; /* Adds a 15px gap above the 'Highers' section */
         }
+        .hangman-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .word {
+            font-size: 24px;
+            letter-spacing: 2px;
+        }
+        .message {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+        .letters {
+            margin-top: 10px;
+        }
+        .letter {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+            margin: 2px;
+            border: 1px solid #333;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -117,7 +141,89 @@
         </section>
         <section id="projects">
             <h2>Projects</h2>
-            <p>A brief description of your projects or a portfolio showcase.</p>
+            <div class="hangman-container">
+                <h3>Hangman Game</h3>
+                <div id="hangman-game">
+                    <div id="word" class="word"></div>
+                    <div id="message" class="message"></div>
+                    <div id="letters" class="letters"></div>
+                </div>
+            </div>
+            <script>
+                const words = ["javascript", "hangman", "coding", "cybersecurity", "software", "engineering"];
+                let answer = '';
+                let maxWrong = 6;
+                let mistakes = 0;
+                let guessed = [];
+                let wordStatus = null;
+
+                function randomWord() {
+                    answer = words[Math.floor(Math.random() * words.length)];
+                }
+
+                function generateButtons() {
+                    let buttonsHTML = 'abcdefghijklmnopqrstuvwxyz'.split('').map(letter =>
+                        `<span
+                            class="letter"
+                            id='` + letter + `'
+                            onClick="handleGuess('` + letter + `')"
+                        >` + letter + `</span>`
+                    ).join('');
+
+                    document.getElementById('letters').innerHTML = buttonsHTML;
+                }
+
+                function handleGuess(chosenLetter) {
+                    guessed.indexOf(chosenLetter) === -1 ? guessed.push(chosenLetter) : null;
+                    document.getElementById(chosenLetter).style.visibility = 'hidden';
+                    if (answer.indexOf(chosenLetter) >= 0) {
+                        guessedWord();
+                        checkIfGameWon();
+                    } else if (answer.indexOf(chosenLetter) === -1) {
+                        mistakes++;
+                        checkIfGameLost();
+                        updateMistakes();
+                    }
+                }
+
+                function guessedWord() {
+                    wordStatus = answer.split('').map(letter => (guessed.indexOf(letter) >= 0 ? letter : " _ ")).join('');
+                    document.getElementById('word').innerHTML = wordStatus;
+                }
+
+                function updateMistakes() {
+                    document.getElementById('message').innerHTML = `Mistakes: ${mistakes} of ${maxWrong}`;
+                }
+
+                function checkIfGameWon() {
+                    if (wordStatus === answer) {
+                        document.getElementById('message').innerHTML = 'You Won!';
+                    }
+                }
+
+                function checkIfGameLost() {
+                    if (mistakes === maxWrong) {
+                        document.getElementById('word').innerHTML = answer;
+                        document.getElementById('message').innerHTML = 'You Lost!';
+                    }
+                }
+
+                function reset() {
+                    mistakes = 0;
+                    guessed = [];
+                    document.getElementById('message').innerHTML = '';
+                    randomWord();
+                    guessedWord();
+                    updateMistakes();
+                    generateButtons();
+                }
+
+                document.getElementById('hangman-game').innerHTML += '<button onClick="reset()">Restart Game</button>';
+                randomWord();
+                generateButtons();
+                guessedWord();
+                updateMistakes();
+            </script>
         </section>
         <section id="blog">
             <h2>Blog</h2>
@@ -126,5 +232,6 @@
     </div>
 </body>
 </html>
+
 
 
