@@ -113,14 +113,14 @@
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
         (function() {
-            emailjs.init("mFpQkCWKx2ZKL9J4q"); // Replace with your EmailJS public key
+            emailjs.init("Qbcfat-i6FqRJR1JO"); // Your updated EmailJS public key
         })();
         
         function sendEmail(e) {
             e.preventDefault();
             
-            const serviceID = 'service_vd2er6o'; // Replace with your EmailJS service ID
-            const templateID = 'template_vi1twcf'; // Replace with your EmailJS template ID
+            const serviceID = 'service_vd2er6o'; // Your EmailJS service ID
+            const templateID = 'template_vi1twcf'; // Your EmailJS template ID
         
             emailjs.sendForm(serviceID, templateID, e.target)
                 .then((response) => {
@@ -135,6 +135,139 @@
         window.addEventListener('DOMContentLoaded', () => {
             document.getElementById('contact-form').addEventListener('submit', sendEmail);
         });
+
+        // Hangman game code
+        const words = ["javascript", "hangman", "coding", "cybersecurity", "software", "engineering"];
+        let answer = '';
+        let maxWrong = 6;
+        let mistakes = 0;
+        let guessed = [];
+        let wordStatus = null;
+
+        function randomWord() {
+            answer = words[Math.floor(Math.random() * words.length)];
+        }
+
+        function generateButtons() {
+            let buttonsHTML = 'abcdefghijklmnopqrstuvwxyz'.split('').map(letter =>
+                `<span
+                    class="letter"
+                    id='` + letter + `'
+                    onClick="handleGuess('` + letter + `')"
+                >` + letter + `</span>`
+            ).join('');
+
+            document.getElementById('letters').innerHTML = buttonsHTML;
+        }
+
+        function handleGuess(chosenLetter) {
+            guessed.indexOf(chosenLetter) === -1 ? guessed.push(chosenLetter) : null;
+            document.getElementById(chosenLetter).style.visibility = 'hidden';
+            if (answer.indexOf(chosenLetter) >= 0) {
+                guessedWord();
+                checkIfGameWon();
+            } else if (answer.indexOf(chosenLetter) === -1) {
+                mistakes++;
+                updateHangmanPicture();
+                checkIfGameLost();
+                updateMistakes();
+            }
+        }
+
+        function updateHangmanPicture() {
+            const hangman = document.getElementById('hangman');
+            const ctx = hangman.getContext('2d');
+            ctx.clearRect(0, 0, hangman.width, hangman.height);
+
+            if (mistakes >= 1) drawHead(ctx);
+            if (mistakes >= 2) drawBody(ctx);
+            if (mistakes >= 3) drawLeftArm(ctx);
+            if (mistakes >= 4) drawRightArm(ctx);
+            if (mistakes >= 5) drawLeftLeg(ctx);
+            if (mistakes >= 6) drawRightLeg(ctx);
+        }
+
+        function drawHead(ctx) {
+            ctx.beginPath();
+            ctx.arc(100, 50, 20, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.stroke();
+        }
+
+        function drawBody(ctx) {
+            ctx.beginPath();
+            ctx.moveTo(100, 70);
+            ctx.lineTo(100, 120);
+            ctx.stroke();
+        }
+
+        function drawLeftArm(ctx) {
+            ctx.beginPath();
+            ctx.moveTo(100, 80);
+            ctx.lineTo(60, 100);
+            ctx.stroke();
+        }
+
+        function drawRightArm(ctx) {
+            ctx.beginPath();
+            ctx.moveTo(100, 80);
+            ctx.lineTo(140, 100);
+            ctx.stroke();
+        }
+
+        function drawLeftLeg(ctx) {
+            ctx.beginPath();
+            ctx.moveTo(100, 120);
+            ctx.lineTo(60, 160);
+            ctx.stroke();
+        }
+
+        function drawRightLeg(ctx) {
+            ctx.beginPath();
+            ctx.moveTo(100, 120);
+            ctx.lineTo(140, 160);
+            ctx.stroke();
+        }
+
+        function guessedWord() {
+            wordStatus = answer.split('').map(letter => (guessed.indexOf(letter) >= 0 ? letter : " _ ")).join('');
+            document.getElementById('word').innerHTML = wordStatus;
+        }
+
+        function updateMistakes() {
+            document.getElementById('message').innerHTML = `Mistakes: ${mistakes} of ${maxWrong}`;
+        }
+
+        function checkIfGameWon() {
+            if (wordStatus === answer) {
+                document.getElementById('message').innerHTML = 'You Won!';
+            }
+        }
+
+        function checkIfGameLost() {
+            if (mistakes === maxWrong) {
+                document.getElementById('word').innerHTML = answer;
+                document.getElementById('message').innerHTML = 'You Lost!';
+            }
+        }
+
+        function reset() {
+            mistakes = 0;
+            guessed = [];
+            document.getElementById('message').innerHTML = '';
+            randomWord();
+            guessedWord();
+            updateMistakes();
+            generateButtons();
+            updateHangmanPicture();
+        }
+
+        document.getElementById('hangman-game').innerHTML += '<button onClick="reset()">Restart Game</button>';
+        randomWord();
+        generateButtons();
+        guessedWord();
+        updateMistakes();
+        updateHangmanPicture();
     </script>
 </head>
 <body>
