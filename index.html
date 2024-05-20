@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alex's Website</title>
     <style>
-        /* Basic styling for the body */
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
@@ -14,14 +13,12 @@
             color: #333;
             background-color: #f4f4f4;
         }
-        /* Styling for the header */
         header {
             background: #333;
             color: #fff;
             padding: 10px 0;
             text-align: center;
         }
-        /* Styling for the navigation bar */
         nav {
             display: flex;
             justify-content: center;
@@ -37,7 +34,6 @@
         nav a:hover {
             background: #555;
         }
-        /* Styling for the main content container */
         .container {
             width: 80%;
             margin: 20px auto;
@@ -47,46 +43,37 @@
         section {
             margin-bottom: 20px;
         }
-        /* Remove default list styling */
-        ul, li {
+        ul {
             margin: 0;
             padding: 0;
             list-style: none; /* Remove bullets from all lists */
         }
-        /* Add bullets to specific lists */
         ul.bulleted {
             list-style: disc; /* Add bullets to specific lists */
             margin-left: 20px; /* Indent the bullet points */
         }
-        /* Basic styling for h3 elements */
         h3 {
             margin-top: 0;
             font-weight: normal; /* Removes bold styling from all h3 elements */
         }
-        /* Make h3 elements bold when needed */
         h3.bold {
             font-weight: bold; /* Ensures bold h3 elements */
         }
-        /* Underline h3 elements when needed */
         h3.underline {
             text-decoration: underline; /* Ensures underline for h3 elements with the class 'underline' */
         }
-        /* Utility classes for bold and underline */
         .bold {
             font-weight: bold;
         }
         .underline {
             text-decoration: underline;
         }
-        /* Adds a gap above specific sections */
         .space-above {
             margin-top: 15px; /* Adds a 15px gap above the 'Highers' section */
         }
-        /* Styling for game titles */
         .game-title {
             font-weight: bold; /* Makes the game titles bold */
         }
-        /* Center and style hangman container */
         .hangman-container {
             text-align: center;
             margin-top: 20px;
@@ -114,7 +101,6 @@
         .hangman-image {
             margin: 20px auto;
         }
-        /* Center and style the contact form */
         .contact-form {
             margin-top: 20px;
             text-align: center;
@@ -144,7 +130,6 @@
             background-color: #555;
         }
     </style>
-    <!-- EmailJS initialization and function to send emails -->
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
         (function() {
@@ -449,12 +434,10 @@
     </nav>
     <div class="container">
         <section id="about">
-            <!-- About Me section -->
             <h2>About Me</h2>
             <p>My name is Alex and I'm originally from Scotland but living in Cheltenham, England working as a Cyber Security Engineer. I've spent the last 10 years serving in the British Army as an Information Services Engineer working on Servers, Cloud, Systems Engineering, SATCOM Systems, Electronic Warfare, SIGINT and Service Desk roles. I am now working towards building my skillset in Cyber Security and Software Engineering prior to moving into the civilian world.</p>
         </section>
         <section id="cv">
-            <!-- CV section -->
             <h2>CV</h2>
             <ul>
                 <li>2013-2017: 16th Signal Regiment - Service Desk Operator, Tactical Communications Systems, Deployable Server Systems, Voice Procedure, Cable Infrastructure Installation</li>
@@ -464,7 +447,6 @@
             </ul>
         </section>
         <section id="education">
-            <!-- Education section -->
             <h2>Education</h2>
             <h3 class="bold underline">School: Braes High School (2006-2011)</h3>
             <ul class="bulleted">
@@ -487,11 +469,8 @@
             </ul>
             <h3 class="bold underline space-above">British Army: Royal Signals (2013- )</h3>
             <ul class="bulleted">
-                <li>Communications Systems Operator Course</li>
                 <li>Level 3 NVQ in Telecommunications</li>
-                <li>Communications Systems Engineer Course</li>    
                 <li>Level 4 in Leadership and Management</li>
-                <li>Information Services Engineer Class 1 Course</li>
             </ul>
             <h3 class="bold underline space-above">The Open University (2023- )</h3>
             <ul class="bulleted">
@@ -499,7 +478,6 @@
             </ul>
         </section>
         <section id="projects">
-            <!-- Projects section -->
             <h2>Projects</h2>
             <div class="hangman-container">
                 <h3 class="game-title">Hangman Game</h3>
@@ -516,12 +494,10 @@
             </div>
         </section>
         <section id="blog">
-            <!-- Blog section -->
             <h2>Blog</h2>
             <p>Insights into your professional interests, hobbies, or any other content you want to share.</p>
         </section>
         <section id="contact">
-            <!-- Contact section -->
             <h2>Contact Me</h2>
             <div class="contact-form">
                 <form id="contact-form">
