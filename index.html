@@ -4,123 +4,134 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alex's Website</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            background-color: #f4f4f4;
-        }
-        header {
-            background: #333;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-        }
-        nav {
-            display: flex;
-            justify-content: center;
-            background: #444;
-            padding: 10px 0;
-        }
-        nav a {
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-        nav a:hover {
-            background: #555;
-        }
-        .container {
-            width: 80%;
-            margin: 20px auto;
-            background: white;
-            padding: 20px;
-        }
-        section {
-            margin-bottom: 20px;
-        }
-        ul, li {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-        h3 {
-            margin-top: 0;
-            text-decoration: underline;
-            font-weight: normal; /* Removes bold styling from all h3 elements */
-        }
-        .subheader {
-            margin-top: 10px; /* Adds a 10px gap above each subheader */
-        }
-        .space-above {
-            margin-top: 15px; /* Adds a 15px gap above the 'Highers' section */
-        }
-        .hangman-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .word {
-            font-size: 24px;
-            letter-spacing: 2px;
-        }
-        .message {
-            font-size: 20px;
-            margin-top: 10px;
-        }
-        .letters {
-            margin-top: 10px;
-        }
-        .letter {
-            display: inline-block;
-            width: 25px;
-            height: 25px;
-            line-height: 25px;
-            margin: 2px;
-            border: 1px solid #333;
-            cursor: pointer;
-        }
-        .hangman-image {
-            margin: 20px auto;
-        }
-        .contact-form {
-            margin-top: 20px;
-            text-align: center;
-        }
-        .contact-form input,
-        .contact-form textarea {
-            width: 80%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #333;
-            border-radius: 5px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .contact-form button {
-            padding: 10px 20px;
-            border: none;
-            background-color: #333;
-            color: #fff;
-            cursor: pointer;
-            border-radius: 5px;
-            display: block;
-            margin: 20px auto 0;
-        }
-        .contact-form button:hover {
-            background-color: #555;
-        }
-        .bold {
-            font-weight: bold;
-        }
-        .underline {
-            text-decoration: underline;
-        }
-    </style>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        color: #333;
+        background-color: #f4f4f4;
+    }
+    header {
+        background: #333;
+        color: #fff;
+        padding: 10px 0;
+        text-align: center;
+    }
+    nav {
+        display: flex;
+        justify-content: center;
+        background: #444;
+        padding: 10px 0;
+    }
+    nav a {
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+    nav a:hover {
+        background: #555;
+    }
+    .container {
+        width: 80%;
+        margin: 20px auto;
+        background: white;
+        padding: 20px;
+    }
+    section {
+        margin-bottom: 20px;
+    }
+    ul, li {
+        margin: 0;
+        padding: 0;
+        list-style: none; /* Remove bullets from all lists */
+    }
+    ul.bulleted {
+        list-style: disc; /* Add bullets to specific lists */
+        margin-left: 20px; /* Indent the bullet points */
+    }
+    h3 {
+        margin-top: 0;
+        text-decoration: underline;
+        font-weight: normal; /* Removes bold styling from all h3 elements */
+    }
+    h3.bold {
+        text-decoration: none; /* Ensures bold h3 elements are not underlined */
+    }
+    .subheader {
+        margin-top: 10px; /* Adds a 10px gap above each subheader */
+    }
+    .space-above {
+        margin-top: 15px; /* Adds a 15px gap above the 'Highers' section */
+    }
+    .hangman-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .word {
+        font-size: 24px;
+        letter-spacing: 2px;
+    }
+    .message {
+        font-size: 20px;
+        margin-top: 10px;
+    }
+    .letters {
+        margin-top: 10px;
+    }
+    .letter {
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        line-height: 25px;
+        margin: 2px;
+        border: 1px solid #333;
+        cursor: pointer;
+    }
+    .hangman-image {
+        margin: 20px auto;
+    }
+    .contact-form {
+        margin-top: 20px;
+        text-align: center;
+    }
+    .contact-form input,
+    .contact-form textarea {
+        width: 80%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #333;
+        border-radius: 5px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .contact-form button {
+        padding: 10px 20px;
+        border: none;
+        background-color: #333;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 5px;
+        display: block;
+        margin: 20px auto 0;
+    }
+    .contact-form button:hover {
+        background-color: #555;
+    }
+    .bold {
+        font-weight: bold;
+    }
+    .underline {
+        text-decoration: underline;
+    }
+    h3.bold {
+        text-decoration: none; /* Ensures bold h3 elements are not underlined */
+    }
+</style>
+
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
         (function() {
@@ -437,37 +448,37 @@
                 <li>2024: Defence Digital - Cyber Security, Reverse Engineering, Software Engineering.</li>
             </ul>
         </section>
-        <section id="education">
-            <h2>Education</h2>
-            <h3 class="bold underline">School: Braes High School (2006-2011)</h3>
-            <ul>
-                <li class="space-above"><h3 class="bold">Standard Grades</h3></li>
-                <ul>
-                    <li>English</li>
-                    <li>Maths</li>
-                    <li>Computing</li>
-                    <li>History</li>
-                    <li>Physical Education</li>
-                    <li>Biology</li>
-                </ul>
-                <li class="space-above"><h3 class="bold">Highers</h3></li>
-                <ul>
-                    <li>English</li>
-                    <li>Computing</li>
-                    <li>Physical Education</li>
-                    <li>CISCO IT Essentials</li>
-                </ul>
-            </ul>
-            <h3 class="bold underline space-above">British Army: Royal Signals (2013- )</h3>
-            <ul>
-                <li>Level 3 NVQ in Telecommunications</li>
-                <li>Level 4 in Leadership and Management</li>
-            </ul>
-            <h3 class="bold underline space-above">The Open University (2023- )</h3>
-            <ul>
-                <li>BSc in Cyber Security (2023- )</li>
-            </ul>
-        </section>
+<section id="education">
+    <h2>Education</h2>
+    <h3 class="bold underline">School: Braes High School (2006-2011)</h3>
+    <ul>
+        <li class="space-above"><h3 class="bold">Standard Grades</h3></li>
+        <ul class="bulleted">
+            <li>English</li>
+            <li>Maths</li>
+            <li>Computing</li>
+            <li>History</li>
+            <li>Physical Education</li>
+            <li>Biology</li>
+        </ul>
+        <li class="space-above"><h3 class="bold">Highers</h3></li>
+        <ul class="bulleted">
+            <li>English</li>
+            <li>Computing</li>
+            <li>Physical Education</li>
+            <li>CISCO IT Essentials</li>
+        </ul>
+    </ul>
+    <h3 class="bold underline space-above">British Army: Royal Signals (2013- )</h3>
+    <ul class="bulleted">
+        <li>Level 3 NVQ in Telecommunications</li>
+        <li>Level 4 in Leadership and Management</li>
+    </ul>
+    <h3 class="bold underline space-above">The Open University (2023- )</h3>
+    <ul class="bulleted">
+        <li>BSc in Cyber Security (2023- )</li>
+    </ul>
+</section>
         <section id="projects">
             <h2>Projects</h2>
             <div class="hangman-container">
