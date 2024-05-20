@@ -50,15 +50,17 @@
         }
         h3 {
             margin-top: 0;
-            font-weight: bold; /* Make h3 elements bold */
-        }
-        .underline {
             text-decoration: underline;
+            font-weight: normal; /* Removes bold styling from all h3 elements */
+        }
+        .subheader {
+            margin-top: 10px; /* Adds a 10px gap above each subheader */
         }
         .space-above {
-            margin-top: 15px; /* Adds a 15px gap above the section */
+            margin-top: 15px; /* Adds a 15px gap above the 'Highers' section */
         }
-        .hangman-container {
+        .hangman-container,
+        .space-invaders-container {
             text-align: center;
             margin-top: 20px;
         }
@@ -183,22 +185,24 @@
             const ctx = hangman.getContext('2d');
             ctx.clearRect(0, 0, hangman.width, hangman.height);
 
-            // Draw gallows
-            ctx.beginPath();
-            ctx.moveTo(10, 190);
-            ctx.lineTo(150, 190);
-            ctx.moveTo(30, 190);
-            ctx.lineTo(30, 10);
-            ctx.lineTo(100, 10);
-            ctx.lineTo(100, 30);
-            ctx.stroke();
-
+            drawGallows(ctx);
             if (mistakes >= 1) drawHead(ctx);
             if (mistakes >= 2) drawBody(ctx);
             if (mistakes >= 3) drawLeftArm(ctx);
             if (mistakes >= 4) drawRightArm(ctx);
             if (mistakes >= 5) drawLeftLeg(ctx);
             if (mistakes >= 6) drawRightLeg(ctx);
+        }
+
+        function drawGallows(ctx) {
+            ctx.beginPath();
+            ctx.moveTo(10, 190);
+            ctx.lineTo(60, 190);
+            ctx.moveTo(35, 190);
+            ctx.lineTo(35, 20);
+            ctx.lineTo(100, 20);
+            ctx.lineTo(100, 40);
+            ctx.stroke();
         }
 
         function drawHead(ctx) {
@@ -284,8 +288,96 @@
             updateMistakes();
             updateHangmanPicture();
         }
+
+        // Space Invaders game code
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('space-invaders');
+            const ctx = canvas.getContext('2d');
+
+            const player = {
+                width: 20,
+                height: 20,
+                x: canvas.width / 2 - 10,
+                y: canvas.height - 30,
+                speed: 5,
+                dx: 0,
+                dy: 0
+            };
+
+            const aliens = [];
+            const rows = 3;
+            const cols = 10;
+            const alienWidth = 20;
+            const alienHeight = 20;
+            const alienPadding = 10;
+            const alienOffsetTop = 30;
+            const alienOffsetLeft = 30;
+
+            for (let c = 0; c < cols; c++) {
+                for (let r = 0; r < rows; r++) {
+                    const alienX = c * (alienWidth + alienPadding) + alienOffsetLeft;
+                    const alienY = r * (alienHeight + alienPadding) + alienOffsetTop;
+                    aliens.push({ x: alienX, y: alienY, width: alienWidth, height: alienHeight });
+                }
+            }
+
+            function drawPlayer() {
+                ctx.fillStyle = '#0095DD';
+                ctx.fillRect(player.x, player.y, player.width, player.height);
+            }
+
+            function drawAliens() {
+                ctx.fillStyle = '#009900';
+                aliens.forEach(alien => {
+                    ctx.fillRect(alien.x, alien.y, alien.width, alien.height);
+                });
+            }
+
+            function clear() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+
+            function movePlayer() {
+                player.x += player.dx;
+                player.y += player.dy;
+
+                // Wall detection
+                if (player.x < 0) {
+                    player.x = 0;
+                }
+                if (player.x + player.width > canvas.width) {
+                    player.x = canvas.width - player.width;
+                }
+            }
+
+            function update() {
+                clear();
+                drawPlayer();
+                drawAliens();
+                movePlayer();
+                requestAnimationFrame(update);
+            }
+
+            function keyDown(e) {
+                if (e.key === 'ArrowRight' || e.key === 'Right') {
+                    player.dx = player.speed;
+                } else if (e.key === 'ArrowLeft' || e.key === 'Left') {
+                    player.dx = -player.speed;
+                }
+            }
+
+            function keyUp(e) {
+                if (e.key === 'ArrowRight' || e.key === 'Right' || e.key === 'ArrowLeft' || e.key === 'Left') {
+                    player.dx = 0;
+                }
+            }
+
+            document.addEventListener('keydown', keyDown);
+            document.addEventListener('keyup', keyUp);
+
+            update();
+        });
     </script>
-    <script src="game.js"></script>
 </head>
 <body>
     <header>
@@ -315,7 +407,7 @@
         </section>
         <section id="education">
             <h2>Education</h2>
-            <h3 class="bold underline">School: Braes High School (2006-2011)</h3>
+            <h3><strong><u>School: Braes High School (2006-2011)</u></strong></h3>
             <ul>
                 <li class="space-above"><h3 class="bold">Standard Grades</h3></li>
                 <ul>
@@ -334,12 +426,12 @@
                     <li>CISCO IT Essentials</li>
                 </ul>
             </ul>
-            <h3 class="bold underline space-above">British Army: Royal Signals (2013- )</h3>
+            <h3><strong><u>British Army: Royal Signals (2013- )</u></strong></h3>
             <ul>
                 <li>Level 3 NVQ in Telecommunications</li>
                 <li>Level 4 in Leadership and Management</li>
             </ul>
-            <h3 class="bold underline space-above">The Open University (2023- )</h3>
+            <h3><strong><u>The Open University (2023- )</u></strong></h3>
             <ul>
                 <li>BSc in Cyber Security (2023- )</li>
             </ul>
@@ -355,9 +447,9 @@
                     <div id="letters" class="letters"></div>
                 </div>
             </div>
-            <h3><a href="space_invaders.html">Space Invaders Game</a></h3>
-            <div id="space-invaders-container">
-                <canvas id="space-invaders" width="800" height="600"></canvas>
+            <div class="space-invaders-container">
+                <h3>Space Invaders Game</h3>
+                <canvas id="space-invaders" width="480" height="320"></canvas>
             </div>
         </section>
         <section id="blog">
