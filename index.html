@@ -184,6 +184,8 @@
             const ctx = hangman.getContext('2d');
             ctx.clearRect(0, 0, hangman.width, hangman.height);
 
+            drawGallows(ctx);
+
             if (mistakes >= 1) drawHead(ctx);
             if (mistakes >= 2) drawBody(ctx);
             if (mistakes >= 3) drawLeftArm(ctx);
@@ -192,45 +194,56 @@
             if (mistakes >= 6) drawRightLeg(ctx);
         }
 
+        function drawGallows(ctx) {
+            ctx.beginPath();
+            ctx.moveTo(10, 190);
+            ctx.lineTo(190, 190);
+            ctx.moveTo(100, 190);
+            ctx.lineTo(100, 10);
+            ctx.lineTo(150, 10);
+            ctx.lineTo(150, 30);
+            ctx.stroke();
+        }
+
         function drawHead(ctx) {
             ctx.beginPath();
-            ctx.arc(100, 50, 20, 0, Math.PI * 2);
+            ctx.arc(150, 50, 20, 0, Math.PI * 2);
             ctx.closePath();
             ctx.stroke();
         }
 
         function drawBody(ctx) {
             ctx.beginPath();
-            ctx.moveTo(100, 70);
-            ctx.lineTo(100, 120);
+            ctx.moveTo(150, 70);
+            ctx.lineTo(150, 120);
             ctx.stroke();
         }
 
         function drawLeftArm(ctx) {
             ctx.beginPath();
-            ctx.moveTo(100, 80);
-            ctx.lineTo(60, 100);
+            ctx.moveTo(150, 80);
+            ctx.lineTo(110, 100);
             ctx.stroke();
         }
 
         function drawRightArm(ctx) {
             ctx.beginPath();
-            ctx.moveTo(100, 80);
-            ctx.lineTo(140, 100);
+            ctx.moveTo(150, 80);
+            ctx.lineTo(190, 100);
             ctx.stroke();
         }
 
         function drawLeftLeg(ctx) {
             ctx.beginPath();
-            ctx.moveTo(100, 120);
-            ctx.lineTo(60, 160);
+            ctx.moveTo(150, 120);
+            ctx.lineTo(110, 160);
             ctx.stroke();
         }
 
         function drawRightLeg(ctx) {
             ctx.beginPath();
-            ctx.moveTo(100, 120);
-            ctx.lineTo(140, 160);
+            ctx.moveTo(150, 120);
+            ctx.lineTo(190, 160);
             ctx.stroke();
         }
 
