@@ -43,7 +43,7 @@
         section {
             margin-bottom: 20px;
         }
-        ul {
+        ul, li {
             margin: 0;
             padding: 0;
             list-style: none; /* Remove bullets from all lists */
@@ -70,6 +70,9 @@
         }
         .space-above {
             margin-top: 15px; /* Adds a 15px gap above the 'Highers' section */
+        }
+        .game-title {
+            font-weight: bold; /* Makes the game titles bold */
         }
         .hangman-container {
             text-align: center;
@@ -477,7 +480,7 @@
         <section id="projects">
             <h2>Projects</h2>
             <div class="hangman-container">
-                <h3>Hangman Game</h3>
+                <h3 class="game-title">Hangman Game</h3>
                 <canvas id="hangman" width="200" height="200" class="hangman-image"></canvas>
                 <div id="hangman-game">
                     <div id="word" class="word"></div>
@@ -486,7 +489,7 @@
                 </div>
             </div>
             <div class="space-invaders-container" style="text-align: center; margin-top: 40px;">
-                <h3>Space Invaders Game</h3>
+                <h3 class="game-title">Space Invaders Game</h3>
                 <canvas id="space-invaders" width="600" height="600" style="background-color: black; display: block; margin: 0 auto;"></canvas>
             </div>
         </section>
