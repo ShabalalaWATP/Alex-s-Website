@@ -50,6 +50,7 @@
         }
         h3 {
             margin-top: 0;
+            text-decoration: underline;
             font-weight: normal; /* Removes bold styling from all h3 elements */
         }
         .subheader {
@@ -58,8 +59,7 @@
         .space-above {
             margin-top: 15px; /* Adds a 15px gap above the 'Highers' section */
         }
-        .hangman-container,
-        .space-invaders-container {
+        .hangman-container {
             text-align: center;
             margin-top: 20px;
         }
@@ -114,9 +114,14 @@
         .contact-form button:hover {
             background-color: #555;
         }
+        .bold {
+            font-weight: bold;
+        }
+        .underline {
+            text-decoration: underline;
+        }
     </style>
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-    <script src="game.js" defer></script>
     <script>
         (function() {
             emailjs.init("Qbcfat-i6FqRJR1JO"); // Your updated EmailJS public key
@@ -185,7 +190,8 @@
             const ctx = hangman.getContext('2d');
             ctx.clearRect(0, 0, hangman.width, hangman.height);
 
-            drawGallows(ctx);
+            drawGallows(ctx); // Draw the gallows at the start
+
             if (mistakes >= 1) drawHead(ctx);
             if (mistakes >= 2) drawBody(ctx);
             if (mistakes >= 3) drawLeftArm(ctx);
@@ -196,9 +202,9 @@
 
         function drawGallows(ctx) {
             ctx.beginPath();
-            ctx.moveTo(10, 180);
-            ctx.lineTo(130, 180);
-            ctx.moveTo(30, 180);
+            ctx.moveTo(10, 190);
+            ctx.lineTo(190, 190);
+            ctx.moveTo(30, 190);
             ctx.lineTo(30, 20);
             ctx.lineTo(100, 20);
             ctx.lineTo(100, 40);
@@ -207,43 +213,43 @@
 
         function drawHead(ctx) {
             ctx.beginPath();
-            ctx.arc(100, 50, 10, 0, Math.PI * 2);
+            ctx.arc(100, 50, 20, 0, Math.PI * 2);
             ctx.closePath();
             ctx.stroke();
         }
 
         function drawBody(ctx) {
             ctx.beginPath();
-            ctx.moveTo(100, 60);
-            ctx.lineTo(100, 100);
+            ctx.moveTo(100, 70);
+            ctx.lineTo(100, 120);
             ctx.stroke();
         }
 
         function drawLeftArm(ctx) {
             ctx.beginPath();
-            ctx.moveTo(100, 70);
-            ctx.lineTo(80, 90);
+            ctx.moveTo(100, 80);
+            ctx.lineTo(60, 100);
             ctx.stroke();
         }
 
         function drawRightArm(ctx) {
             ctx.beginPath();
-            ctx.moveTo(100, 70);
-            ctx.lineTo(120, 90);
+            ctx.moveTo(100, 80);
+            ctx.lineTo(140, 100);
             ctx.stroke();
         }
 
         function drawLeftLeg(ctx) {
             ctx.beginPath();
-            ctx.moveTo(100, 100);
-            ctx.lineTo(80, 130);
+            ctx.moveTo(100, 120);
+            ctx.lineTo(60, 160);
             ctx.stroke();
         }
 
         function drawRightLeg(ctx) {
             ctx.beginPath();
-            ctx.moveTo(100, 100);
-            ctx.lineTo(120, 130);
+            ctx.moveTo(100, 120);
+            ctx.lineTo(140, 160);
             ctx.stroke();
         }
 
@@ -288,6 +294,121 @@
             updateMistakes();
             updateHangmanPicture();
         }
+
+        // Space Invaders Game Code
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('space-invaders');
+            const ctx = canvas.getContext('2d');
+            const CANVAS_WIDTH = canvas.width = 600;
+            const CANVAS_HEIGHT = canvas.height = 600;
+
+            class Alien {
+                constructor(x, y) {
+                    this.x = x;
+                    this.y = y;
+                    this.width = 40;
+                    this.height = 40;
+                    this.color = 'green';
+                    this.alive = true;
+                }
+
+                draw() {
+                    if (this.alive) {
+                        ctx.fillStyle = this.color;
+                        ctx.fillRect(this.x, this.y, this.width, this.height);
+                    }
+                }
+
+                move() {
+                    this.x += 2;
+                    if (this.x > CANVAS_WIDTH - this.width || this.x < 0) {
+                        this.x -= 2;
+                        this.y += this.height;
+                        this.width = -this.width;
+                    }
+                }
+            }
+
+            class Player {
+                constructor() {
+                    this.x = CANVAS_WIDTH / 2 - 20;
+                    this.y = CANVAS_HEIGHT - 60;
+                    this.width = 40;
+                    this.height = 40;
+                    this.color = 'blue';
+                    this.movingLeft = false;
+                    this.movingRight = false;
+                }
+
+                draw() {
+                    ctx.fillStyle = this.color;
+                    ctx.fillRect(this.x, this.y, this.width, this.height);
+                }
+
+                move() {
+                    if (this.movingLeft && this.x > 0) {
+                        this.x -= 5;
+                    }
+                    if (this.movingRight && this.x < CANVAS_WIDTH - this.width) {
+                        this.x += 5;
+                    }
+                }
+            }
+
+            const aliens = [];
+            const rows = 3;
+            const cols = 10;
+            const alienWidth = 40;
+            const alienHeight = 40;
+            const alienPadding = 10;
+            const alienOffsetTop = 30;
+            const alienOffsetLeft = 30;
+
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    const alienX = col * (alienWidth + alienPadding) + alienOffsetLeft;
+                    const alienY = row * (alienHeight + alienPadding) + alienOffsetTop;
+                    aliens.push(new Alien(alienX, alienY));
+                }
+            }
+
+            const player = new Player();
+
+            function draw() {
+                ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+                aliens.forEach(alien => alien.draw());
+                player.draw();
+            }
+
+            function update() {
+                aliens.forEach(alien => alien.move());
+                player.move();
+            }
+
+            function gameLoop() {
+                draw();
+                update();
+                requestAnimationFrame(gameLoop);
+            }
+
+            gameLoop();
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    player.movingLeft = true;
+                } else if (e.key === 'ArrowRight') {
+                    player.movingRight = true;
+                }
+            });
+
+            document.addEventListener('keyup', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    player.movingLeft = false;
+                } else if (e.key === 'ArrowRight') {
+                    player.movingRight = false;
+                }
+            });
+        });
     </script>
 </head>
 <body>
@@ -300,7 +421,7 @@
         <a href="#education">Education</a>
         <a href="#projects">Projects</a>
         <a href="#blog">Blog</a>
-        <a href="#contact">Contact Me</a> <!-- Added Contact Me link -->
+        <a href="#contact">Contact Me</a>
     </nav>
     <div class="container">
         <section id="about">
@@ -337,12 +458,12 @@
                     <li>CISCO IT Essentials</li>
                 </ul>
             </ul>
-            <h3 class="bold underline">British Army: Royal Signals (2013- )</h3>
+            <h3 class="bold underline space-above">British Army: Royal Signals (2013- )</h3>
             <ul>
                 <li>Level 3 NVQ in Telecommunications</li>
                 <li>Level 4 in Leadership and Management</li>
             </ul>
-            <h3 class="bold underline">The Open University (2023- )</h3>
+            <h3 class="bold underline space-above">The Open University (2023- )</h3>
             <ul>
                 <li>BSc in Cyber Security (2023- )</li>
             </ul>
@@ -358,9 +479,9 @@
                     <div id="letters" class="letters"></div>
                 </div>
             </div>
-            <div class="space-invaders-container">
+            <div class="space-invaders-container" style="text-align: center; margin-top: 40px;">
                 <h3>Space Invaders Game</h3>
-                <canvas id="space-invaders" width="480" height="320"></canvas>
+                <canvas id="space-invaders" width="600" height="600" style="background-color: black; display: block; margin: 0 auto;"></canvas>
             </div>
         </section>
         <section id="blog">
