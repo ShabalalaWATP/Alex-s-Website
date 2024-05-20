@@ -50,14 +50,13 @@
         }
         h3 {
             margin-top: 0;
-            text-decoration: underline;
-            font-weight: normal; /* Removes bold styling from all h3 elements */
+            font-weight: bold; /* Make h3 elements bold */
         }
-        .subheader {
-            margin-top: 10px; /* Adds a 10px gap above each subheader */
+        .underline {
+            text-decoration: underline;
         }
         .space-above {
-            margin-top: 15px; /* Adds a 15px gap above the 'Highers' section */
+            margin-top: 15px; /* Adds a 15px gap above the section */
         }
         .hangman-container {
             text-align: center;
@@ -184,6 +183,16 @@
             const ctx = hangman.getContext('2d');
             ctx.clearRect(0, 0, hangman.width, hangman.height);
 
+            // Draw gallows
+            ctx.beginPath();
+            ctx.moveTo(10, 190);
+            ctx.lineTo(150, 190);
+            ctx.moveTo(30, 190);
+            ctx.lineTo(30, 10);
+            ctx.lineTo(100, 10);
+            ctx.lineTo(100, 30);
+            ctx.stroke();
+
             if (mistakes >= 1) drawHead(ctx);
             if (mistakes >= 2) drawBody(ctx);
             if (mistakes >= 3) drawLeftArm(ctx);
@@ -276,6 +285,7 @@
             updateHangmanPicture();
         }
     </script>
+    <script src="game.js"></script>
 </head>
 <body>
     <header>
@@ -323,19 +333,15 @@
                     <li>Physical Education</li>
                     <li>CISCO IT Essentials</li>
                 </ul>
-                <ul>
-                    <li class="space-above"><h3 class="underline bold">British Army: Royal Signals (2013- )</h3></li>
-                    <ul>
-                        <li>Level 3 NVQ in Telecommunications</li>
-                        <li>Level 4 in Leadership and Management</li>
-                    </ul>
-                </ul>
-                <ul>
-                    <li class="space-above"><h3 class="underline bold">The Open University (2023- )</h3></li>
-                    <ul>
-                        <li>BSc in Cyber Security (2023- )</li>
-                    </ul>
-                </ul>
+            </ul>
+            <h3 class="bold underline space-above">British Army: Royal Signals (2013- )</h3>
+            <ul>
+                <li>Level 3 NVQ in Telecommunications</li>
+                <li>Level 4 in Leadership and Management</li>
+            </ul>
+            <h3 class="bold underline space-above">The Open University (2023- )</h3>
+            <ul>
+                <li>BSc in Cyber Security (2023- )</li>
             </ul>
         </section>
         <section id="projects">
@@ -349,10 +355,9 @@
                     <div id="letters" class="letters"></div>
                 </div>
             </div>
-            <div class="space-invaders-container">
-                <h3>Space Invaders Game</h3>
-                <canvas id="gameCanvas" width="800" height="600"></canvas>
-                <script src="game.js"></script> <!-- Add this line to include the game.js file -->
+            <h3><a href="space_invaders.html">Space Invaders Game</a></h3>
+            <div id="space-invaders-container">
+                <canvas id="space-invaders" width="800" height="600"></canvas>
             </div>
         </section>
         <section id="blog">
