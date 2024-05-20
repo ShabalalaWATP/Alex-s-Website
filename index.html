@@ -46,13 +46,12 @@
         ul, li {
             margin: 0;
             padding: 0;
+            list-style: none;
         }
-        h3.bold {
-            font-weight: bold;
-        }
-        h3.bold-underline {
-            font-weight: bold;
+        h3 {
+            margin-top: 0;
             text-decoration: underline;
+            font-weight: normal; /* Removes bold styling from all h3 elements */
         }
         .subheader {
             margin-top: 10px; /* Adds a 10px gap above each subheader */
@@ -114,16 +113,6 @@
         }
         .contact-form button:hover {
             background-color: #555;
-        }
-        .education-section h3 {
-            margin-bottom: 10px; /* Adds a 10px gap below each header */
-        }
-        .education-section ul {
-            list-style-type: disc;
-            padding-left: 20px;
-        }
-        .education-section .subsection {
-            margin-top: 20px; /* Adds a 20px gap above each subsection */
         }
     </style>
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
@@ -195,8 +184,6 @@
             const ctx = hangman.getContext('2d');
             ctx.clearRect(0, 0, hangman.width, hangman.height);
 
-            drawGallows(ctx);
-
             if (mistakes >= 1) drawHead(ctx);
             if (mistakes >= 2) drawBody(ctx);
             if (mistakes >= 3) drawLeftArm(ctx);
@@ -205,56 +192,45 @@
             if (mistakes >= 6) drawRightLeg(ctx);
         }
 
-        function drawGallows(ctx) {
-            ctx.beginPath();
-            ctx.moveTo(10, 190);
-            ctx.lineTo(190, 190);
-            ctx.moveTo(100, 190);
-            ctx.lineTo(100, 10);
-            ctx.lineTo(150, 10);
-            ctx.lineTo(150, 30);
-            ctx.stroke();
-        }
-
         function drawHead(ctx) {
             ctx.beginPath();
-            ctx.arc(150, 50, 20, 0, Math.PI * 2);
+            ctx.arc(100, 50, 20, 0, Math.PI * 2);
             ctx.closePath();
             ctx.stroke();
         }
 
         function drawBody(ctx) {
             ctx.beginPath();
-            ctx.moveTo(150, 70);
-            ctx.lineTo(150, 120);
+            ctx.moveTo(100, 70);
+            ctx.lineTo(100, 120);
             ctx.stroke();
         }
 
         function drawLeftArm(ctx) {
             ctx.beginPath();
-            ctx.moveTo(150, 80);
-            ctx.lineTo(110, 100);
+            ctx.moveTo(100, 80);
+            ctx.lineTo(60, 100);
             ctx.stroke();
         }
 
         function drawRightArm(ctx) {
             ctx.beginPath();
-            ctx.moveTo(150, 80);
-            ctx.lineTo(190, 100);
+            ctx.moveTo(100, 80);
+            ctx.lineTo(140, 100);
             ctx.stroke();
         }
 
         function drawLeftLeg(ctx) {
             ctx.beginPath();
-            ctx.moveTo(150, 120);
-            ctx.lineTo(110, 160);
+            ctx.moveTo(100, 120);
+            ctx.lineTo(60, 160);
             ctx.stroke();
         }
 
         function drawRightLeg(ctx) {
             ctx.beginPath();
-            ctx.moveTo(150, 120);
-            ctx.lineTo(190, 160);
+            ctx.moveTo(100, 120);
+            ctx.lineTo(140, 160);
             ctx.stroke();
         }
 
@@ -327,11 +303,11 @@
                 <li>2024: Defence Digital - Cyber Security, Reverse Engineering, Software Engineering.</li>
             </ul>
         </section>
-        <section id="education" class="education-section">
+        <section id="education">
             <h2>Education</h2>
-            <h3 class="bold-underline">School: Braes High School (2006-2011)</h3>
-            <div class="subsection">
-                <h3 class="bold">Standard Grades</h3>
+            <h3 class="bold underline">School: Braes High School (2006-2011)</h3>
+            <ul>
+                <li class="space-above"><h3 class="bold">Standard Grades</h3></li>
                 <ul>
                     <li>English</li>
                     <li>Maths</li>
@@ -340,29 +316,27 @@
                     <li>Physical Education</li>
                     <li>Biology</li>
                 </ul>
-            </div>
-            <div class="subsection">
-                <h3 class="bold">Highers</h3>
+                <li class="space-above"><h3 class="bold">Highers</h3></li>
                 <ul>
                     <li>English</li>
                     <li>Computing</li>
                     <li>Physical Education</li>
                     <li>CISCO IT Essentials</li>
                 </ul>
-            </div>
-            <div class="subsection">
-                <h3 class="bold-underline">British Army: Royal Signals (2013- )</h3>
                 <ul>
-                    <li>Level 3 NVQ in Telecommunications</li>
-                    <li>Level 4 in Leadership and Management</li>
+                    <li class="space-above"><h3 class="underline bold">British Army: Royal Signals (2013- )</h3></li>
+                    <ul>
+                        <li>Level 3 NVQ in Telecommunications</li>
+                        <li>Level 4 in Leadership and Management</li>
+                    </ul>
                 </ul>
-            </div>
-            <div class="subsection">
-                <h3 class="bold-underline">The Open University (2023- )</h3>
                 <ul>
-                    <li>BSc in Cyber Security (2023- )</li>
+                    <li class="space-above"><h3 class="underline bold">The Open University (2023- )</h3></li>
+                    <ul>
+                        <li>BSc in Cyber Security (2023- )</li>
+                    </ul>
                 </ul>
-            </div>
+            </ul>
         </section>
         <section id="projects">
             <h2>Projects</h2>
@@ -374,6 +348,11 @@
                     <div id="message" class="message"></div>
                     <div id="letters" class="letters"></div>
                 </div>
+            </div>
+            <div class="space-invaders-container">
+                <h3>Space Invaders Game</h3>
+                <canvas id="gameCanvas" width="800" height="600"></canvas>
+                <script src="game.js"></script> <!-- Add this line to include the game.js file -->
             </div>
         </section>
         <section id="blog">
