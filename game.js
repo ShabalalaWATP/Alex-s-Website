@@ -1,131 +1,110 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const canvas = document.getElementById('space-invaders');
-    const ctx = canvas.getContext('2d');
+  const canvas = document.getElementById('space-invaders');
+  const ctx = canvas.getContext('2d');
 
-    const alienRowCount = 3;
-    const alienColumnCount = 10;
-    const alienWidth = 50;
-    const alienHeight = 30;
-    const alienPadding = 10;
-    const alienOffsetTop = 30;
-    const alienOffsetLeft = 30;
-    const playerHeight = 30;
-    const playerWidth = 50;
-    const playerSpeed = 7;
-    const bulletWidth = 4;
-    const bulletHeight = 10;
-    const bulletSpeed = 7;
+  // ... (Your existing game constants) ...
 
-    let rightPressed = false;
-    let leftPressed = false;
-    let spacePressed = false;
-    let aliens = [];
-    let bullets = [];
-    let playerX = (canvas.width - playerWidth) / 2;
+  // Game State Variables
+  let rightPressed = false;
+  let leftPressed = false;
+  let spacePressed = false;
+  let aliens = [];
+  let bullets = [];
+  let playerX = (canvas.width - playerWidth) / 2;
+  let score = 0;
+  let gameOver = false;
+  let gameStart = false; // Flag to track if game has started
+  let alienDirection = 1; // 1 for right, -1 for left
+  let alienSpeed = 0.5; // Initial alien speed
 
+  // ... (Your existing alien initialization) ...
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Right' || e.key === 'ArrowRight') {
+      rightPressed = true;
+    } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
+      leftPressed = true;
+    } else if ((e.key === ' ' || e.key === 'Spacebar') && !gameOver && gameStart) {
+      spacePressed = true;
+    } else if (e.key === 'Enter' && !gameStart) {
+      gameStart = true; // Start the game on Enter key press
+      draw(); // Start the game loop
+    }
+  });
+
+  document.addEventListener('keyup', (e) => {
+    if (e.key === 'Right' || e.key === 'ArrowRight') {
+      rightPressed = false;
+    } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
+      leftPressed = false;
+    } else if (e.key === ' ' || e.key === 'Spacebar') {
+      spacePressed = false;
+    }
+  });
+
+  function drawAliens() {
+    // ... (Your existing drawAliens() function) ...
+    
+    // Alien movement and edge detection
+    let hitEdge = false; // Flag to check if aliens hit an edge
     for (let c = 0; c < alienColumnCount; c++) {
-        aliens[c] = [];
-        for (let r = 0; r < alienRowCount; r++) {
-            aliens[c][r] = { x: 0, y: 0, status: 1 };
+      for (let r = 0; r < alienRowCount; r++) {
+        if (aliens[c][r].status === 1) {
+          aliens[c][r].x += alienDirection * alienSpeed;
+          if (aliens[c][r].x + alienWidth > canvas.width || aliens[c][r].x < 0) {
+            hitEdge = true;
+          }
         }
+      }
     }
+    if (hitEdge) {
+      alienDirection = -alienDirection; // Reverse direction
+      aliens.forEach(row => row.forEach(alien => alien.y += alienHeight / 2)); // Move down
+      alienSpeed += 0.1; // Increase speed slightly
+    }
+  }
 
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Right' || e.key === 'ArrowRight') {
-            rightPressed = true;
-        } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
-            leftPressed = true;
-        } else if (e.key === ' ' || e.key === 'Spacebar') {
-            spacePressed = true;
+  // ... (Your existing drawPlayer(), movePlayer(), drawBullets(), and shootBullet() functions) ...
+
+  function checkGameOver() {
+    for (let c = 0; c < alienColumnCount; c++) {
+      for (let r = 0; r < alienRowCount; r++) {
+        if (aliens[c][r].status === 1 && aliens[c][r].y + alienHeight > canvas.height - playerHeight) {
+          gameOver = true;
+          alert("GAME OVER");
         }
-    });
-
-    document.addEventListener('keyup', (e) => {
-        if (e.key === 'Right' || e.key === 'ArrowRight') {
-            rightPressed = false;
-        } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
-            leftPressed = false;
-        } else if (e.key === ' ' || e.key === 'Spacebar') {
-            spacePressed = false;
-        }
-    });
-
-    function drawAliens() {
-        for (let c = 0; c < alienColumnCount; c++) {
-            for (let r = 0; r < alienRowCount; r++) {
-                if (aliens[c][r].status === 1) {
-                    const alienX = c * (alienWidth + alienPadding) + alienOffsetLeft;
-                    const alienY = r * (alienHeight + alienPadding) + alienOffsetTop;
-                    aliens[c][r].x = alienX;
-                    aliens[c][r].y = alienY;
-                    ctx.beginPath();
-                    ctx.rect(alienX, alienY, alienWidth, alienHeight);
-                    ctx.fillStyle = '#00ff00';
-                    ctx.fill();
-                    ctx.closePath();
-                }
-            }
-        }
+      }
     }
 
-    function drawPlayer() {
-        ctx.beginPath();
-        ctx.rect(playerX, canvas.height - playerHeight, playerWidth, playerHeight);
-        ctx.fillStyle = '#0095DD';
-        ctx.fill();
-        ctx.closePath();
+    if (aliens.every(row => row.every(alien => alien.status === 0))) {
+      gameOver = true;
+      alert("YOU WIN");
     }
+  }
 
-    function movePlayer() {
-        if (rightPressed && playerX < canvas.width - playerWidth) {
-            playerX += playerSpeed;
-        } else if (leftPressed && playerX > 0) {
-            playerX -= playerSpeed;
-        }
+  function drawScore() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#fff";
+    ctx.fillText("Score: " + score, 8, 20);
+  }
+
+  function draw() {
+    if (!gameOver && gameStart) { // Check if game has started and not over
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawAliens();
+      drawPlayer();
+      drawBullets();
+      movePlayer();
+      shootBullet();
+      checkGameOver();
+      drawScore();
+      requestAnimationFrame(draw);
+    } else if (!gameStart) {
+      ctx.font = "30px Arial";
+      ctx.fillStyle = "#fff";
+      ctx.fillText("Press Enter to Start", canvas.width / 2 - 150, canvas.height / 2); 
     }
+  }
 
-    function drawBullets() {
-        bullets.forEach((bullet, index) => {
-            ctx.beginPath();
-            ctx.rect(bullet.x, bullet.y, bulletWidth, bulletHeight);
-            ctx.fillStyle = '#ff0000';
-            ctx.fill();
-            ctx.closePath();
-            bullet.y -= bulletSpeed;
-
-            if (bullet.y + bulletHeight < 0) {
-                bullets.splice(index, 1);
-            }
-
-            aliens.forEach((column) => {
-                column.forEach((alien) => {
-                    if (alien.status === 1 && bullet.x > alien.x && bullet.x < alien.x + alienWidth && bullet.y > alien.y && bullet.y < alien.y + alienHeight) {
-                        alien.status = 0;
-                        bullet.status = 0;
-                    }
-                });
-            });
-
-            bullets = bullets.filter(bullet => bullet.status !== 0);
-        });
-    }
-
-    function shootBullet() {
-        if (spacePressed) {
-            bullets.push({ x: playerX + playerWidth / 2 - bulletWidth / 2, y: canvas.height - playerHeight - bulletHeight, status: 1 });
-            spacePressed = false;
-        }
-    }
-
-    function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawAliens();
-        drawPlayer();
-        drawBullets();
-        movePlayer();
-        shootBullet();
-        requestAnimationFrame(draw);
-    }
-
-    draw();
+  // Don't start the game loop initially, wait for Enter key press
 });
